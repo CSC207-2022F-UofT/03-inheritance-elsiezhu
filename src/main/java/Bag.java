@@ -14,7 +14,10 @@ public abstract class Bag {
      *       - an array of Strings named contents
      */
 
-
+    private String color;
+    private int numberOfContents;
+    private int capacity;
+    private String[] contents;
 
 
     /*
@@ -27,7 +30,12 @@ public abstract class Bag {
      * its contents.)
      */
 
-
+    public Bag(String color, int capacity) {
+        this.color = color;
+        this.capacity = capacity;
+        this.numberOfContents = 0;
+        this.contents = new String[0];
+    }
 
 
     /*
@@ -38,7 +46,17 @@ public abstract class Bag {
      *           - getCapacity
      */
 
+    public String getColor() {
+        return this.color;
+    }
 
+    public int getNumberOfContents() {
+        return this.numberOfContents;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
 
 
     /*
@@ -46,7 +64,9 @@ public abstract class Bag {
      *       color of this bag to the given color.
      */
 
-
+    public void setColor(String newColor) {
+        this.color = newColor;
+    }
 
 
 
@@ -61,7 +81,20 @@ public abstract class Bag {
      *       and false otherwise.
      */
 
-
+    public Boolean addItem(String itemToAdd) {
+        if (this.numberOfContents < this.capacity) {
+            String[] copy = new String[this.numberOfContents + 1];
+            for(int i = 0; i < this.contents.length; i++) {
+                copy[i] = this.contents[i];
+            }
+            copy[this.numberOfContents] = itemToAdd;
+            this.contents = copy;
+            this.numberOfContents += 1;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 
@@ -77,7 +110,20 @@ public abstract class Bag {
      */
 
 
-
+    public String popItem() {
+        if (this.contents.length > 0) {
+            String lastItem = this.contents[this.contents.length - 1];
+            String[] copy = new String[this.contents.length - 1];
+            for(int i = 0; i < this.contents.length - 1; i++) {
+                copy[i] = this.contents[i];
+            }
+            this.contents = copy;
+            this.numberOfContents -= 1;
+            return lastItem;
+        } else {
+            return null;
+        }
+    }
 
 
     /**
@@ -86,8 +132,8 @@ public abstract class Bag {
      * @param n the amount to increase this Bag's capacity by
      */
     public void increaseCapacity(int n) {
-        // TODO: Implement this method.
-
+        // TODO: Implement this method. - done
+        this.capacity = this.capacity + n;
     }
 
     /**
